@@ -12,6 +12,9 @@ export interface InvoiceState {
   invoices: InvoiceProps[],
   error: string | null;
   loading: boolean;
+  draft: boolean;
+  pending: boolean;
+  paid: boolean;
 
 }
 
@@ -19,7 +22,13 @@ const initialState: InvoiceState = {
   invoices: [],
   error: null,
   loading: false,
+  draft: true,
+  pending: true,
+  paid: true,
 }
+
+
+
 
 export const reducer = createReducer(
   initialState,
@@ -53,5 +62,5 @@ export const reducer = createReducer(
       invoice.id === id ? {...invoice, ...changes} : invoice
     );
     return {...state, invoices: updatedInvoices};
-  })
+  }),
 )

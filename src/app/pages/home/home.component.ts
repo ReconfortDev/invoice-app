@@ -31,13 +31,7 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(){
     this.store.dispatch(LoadInvoice())
-    this.invoices$.subscribe((Data) => console.log(Data)
-    )
   }
-
-  // loading$!: Observable<boolean>;
-  // error$!: Observable<string | null>;
-
 
   filterOpened = false;
   isModalOpened = false;

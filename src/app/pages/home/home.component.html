@@ -76,21 +76,10 @@
     </div>
   </ng-container>
 
-  <!-- Handle Loading State -->
-<!--  <div *ngIf="loading$ | async" class="w-full flex justify-center items-center">-->
-<!--    <p class="text-lightGray dark:text-white">Loading invoices...</p>-->
-<!--  </div>-->
-
-  <!-- Handle Error State -->
-<!--  <div *ngIf="error$ | async as error" class="w-full flex justify-center items-center">-->
-<!--    <p class="text-red-500">Error: {{ error }}</p>-->
-<!--  </div>-->
-
-
 </div>
 <app-left-modal
   [openModal]="isModalOpened"
   (toggleModal)="toggleModal()"
   [title]="'New invoice'">
-  <app-new-invoice-form/>
+  <app-new-invoice-form (toggleModal)="toggleModal()"/>
 </app-left-modal>

@@ -41,21 +41,16 @@ export class ItemListComponent {
     });
   }
 
-  // addItem() {
-  //   if (this.addressForm.valid) {
-  //     console.log('Form Submitted!', this.addressForm.value);
-  //   }
-  // }
+  addItem() {
+    if (this.addressForm.valid) {
+      console.log('Form Submitted!', this.addressForm.value);
+    }
+  }
 
   toggleAddItem(){
     this.isItemFormActive = !this.isItemFormActive;
   }
 
-  addItem() {
-    if (this.addressForm.valid) {
-      const formData = this.addressForm.value;
-      this.store.dispatch(addItem({ formData }));
-    }
-  }
+
 
 }

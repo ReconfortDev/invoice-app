@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from "@angular/common";
 import {ItemListComponent} from "../item-list/item-list.component";
@@ -14,6 +14,11 @@ import {addItem} from "../../../stores/invoice/actions";
 })
 export class NewInvoiceFormComponent {
   addressForm!: FormGroup;
+  @Output() toggleModal = new EventEmitter();
+
+  onToggleModal(){
+    this.toggleModal.emit();
+  }
 
   constructor(private fb: FormBuilder, private store: Store) {
     this.createForm();
@@ -43,7 +48,7 @@ export class NewInvoiceFormComponent {
     if (this.addressForm.valid) {
       const formData = this.addressForm.value;
       this.store.dispatch(addItem({ formData }));
-      console.log('Form Submitted!', this.addressForm.value);
+      this.onToggleModal()
     }
   }
 
@@ -52,7 +57,7 @@ export class NewInvoiceFormComponent {
       this.addressForm.patchValue({ status: 'draft' });
       const formData = this.addressForm.value;
       this.store.dispatch(addItem({ formData }));
-      console.log('Form Saved as Draft!', this.addressForm.value);
+      this.onToggleModal()
     }
   }
 }
