@@ -1,0 +1,95 @@
+<div class="flex flex-col gap-6 w-full py-4 pb-20 lg:pb-4 shadow">
+  <div class="w-full flex gap-2 flex-col">
+    <div class="flex w-full ">
+      <h3 class="text-sm text-lightGray font-medium w-[40%] md:w-[35%]">Item Name</h3>
+      <h3 class="text-sm text-lightGray font-medium w-[10%]">Qty</h3>
+      <h3 class="text-sm text-lightGray font-medium w-[20%]">Price</h3>
+      <h3 class="text-sm text-lightGray font-medium w-[20%] md:w-[25%]">Total</h3>
+      <h3 class="text-sm text-lightGray font-medium w-[10%]"></h3>
+    </div>
+    <div class="flex w-full gap-3 items-center" *ngFor="let item of items">
+      <div class="flex flex-col gap-1 w-[40%] md:w-[35%] border border-lightGray text-dark dark:text-light p-2 rounded-xl ">
+        {{ item.name }}
+      </div>
+      <div class="flex flex-col gap-1 w-[10%] border border-lightGray text-dark dark:text-light p-2 rounded-xl text-center">
+        {{ item.quantity }}
+      </div>
+      <div class="flex flex-col gap-1 w-[20%] border border-lightGray text-dark dark:text-light p-2 rounded-xl text-center">
+        {{ item.price }}
+      </div>
+      <div class="flex flex-col gap-1 w-[20%] md:w-[25%] border border-lightGray text-dark dark:text-light p-2 rounded-xl text-center">
+        {{ item.quantity * item.price }}
+      </div>
+      <div
+        class="flex flex-col gap-1 w-[10%] scale-90 hover:scale-105 active:scale-95 duration-75 p-2 rounded-xl items-center">
+        <img src="/assets/icon-delete.svg" alt="delete" width="13" height="16" class="w-4">
+      </div>
+    </div>
+
+    <button (click)="toggleAddItem()"
+            [ngClass]="isItemFormActive  ? 'opacity-0 translate-y-10' : 'opacity-1 translate-y-0'"
+            class="w-full bg-lightGray/20 hover:bg-primary hover:text-light text-lightGray p-3 rounded-full mt-3 scale-100 active:scale-75 duration-75">
+      +
+      Add new Items
+    </button>
+
+
+    <!--    Add New Item Form -->
+      <form [formGroup]="addressForm" (ngSubmit)="addItem()" class="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 duration-300"
+            [ngClass]="isItemFormActive  ? 'opacity-1 scale-100 -translate-y-16' : 'opacity-0 translate-y-10 scale-75 '"
+            *ngIf="isItemFormActive">
+        <h2 class="mt-8 text-primary tex-2xl font-semibold lg:col-span-3">Add Item</h2>
+        <!--      Name-->
+        <div class="flex flex-col gap-1 w-full">
+          <label for="name" class="font-semibold text-lightGray">Item name</label>
+          <input id="name" formControlName="name" placeholder="UI/UX Design"
+                 class="border p-2 font-medium rounded-md border-lightGray text-dark dark:text-light dark:bg-darkBlue"/>
+
+          <div *ngIf="addressForm.get('name')?.invalid && addressForm.get('name')?.touched" class="text-red">
+            <small *ngIf="addressForm.get('name')?.errors?.['required']">
+              Name is required.
+            </small>
+          </div>
+        </div>
+
+        <!--      Quantity -->
+        <div class="flex flex-col gap-1 w-full">
+          <label for="quantity" class="font-semibold text-lightGray">Item quantity</label>
+          <input type="number" id="quantity" formControlName="quantity" placeholder="2"
+                 class="border p-2 font-medium rounded-md border-lightGray text-dark dark:text-light dark:bg-darkBlue"/>
+          <div *ngIf="addressForm.get('quantity')?.invalid && addressForm.get('quantity')?.touched" class="text-red">
+            <small *ngIf="addressForm.get('quantity')?.errors?.['required']">
+              Quantity is required.
+            </small>
+            <small *ngIf="addressForm.get('quantity')?.errors?.['min']">
+              Quantity must be over 1
+            </small>
+          </div>
+        </div>
+
+        <!--      Price -->
+        <div class="flex flex-col gap-1 w-full">
+          <label for="price" class="font-semibold text-lightGray">Item Price</label>
+          <input type="number" id="price" formControlName="price" placeholder="2"
+                 class="border p-2 font-medium rounded-md border-lightGray text-dark dark:text-light dark:bg-darkBlue"/>
+          <div *ngIf="addressForm.get('price')?.invalid && addressForm.get('price')?.touched" class="text-red">
+            <small *ngIf="addressForm.get('price')?.errors?.['required']">
+              Price is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 w-full grid grid-cols-2 gap-4">
+          <button
+            (click)="toggleAddItem()"
+            class="w-full bg-lightGray/20 hover:bg-red hover:text-light text-lightGray p-3 rounded-full mt-3 scale-100 active:scale-75 duration-75">
+            Cancel
+          </button>
+          <button type="submit"
+            class="w-full bg-lightGray/20 hover:bg-primary hover:text-light text-lightGray p-3 rounded-full mt-3 scale-100 active:scale-75 duration-75">
+            + Add
+          </button>
+        </div>
+      </form>
+  </div>
+</div>

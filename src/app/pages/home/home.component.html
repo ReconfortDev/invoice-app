@@ -1,0 +1,96 @@
+<div class="w-full flex flex-col gap-4 items-start justify-start">
+
+  <!--    Header-->
+  <div class="flw w-full flex justify-between items-center pt-1 lg:pt-12">
+    <div class="flex flex-col gap-0 lg:gap-1">
+      <h1 class="text-darkBlue dark:text-white text-3xl lg:text-5xl font-bold">Invoice</h1>
+      <p class="text-gray dark:text-light font-light text-base md:text-lg">{{ (invoices$ | async)?.length }} invoices</p>
+    </div>
+
+
+        <div class="flex gap-4 items-center">
+      <div class="relative flex flex-col justify-start items-start">
+        <button class="flex gap-2 items-center" (click)="toggleFilter()">
+          <h2 class="text-darkBlue dark:text-white text-sm font-bold flex">Filter <span class="hidden md:block"> by status</span>
+          </h2>
+          <img src="/assets/icon-arrow-down.svg" alt="logo" width="11" height="7" class="w-4"/>
+        </button>
+        <div
+          class="shadow p-6 rounded-xl w-48 absolute bg-white dark:bg-gray flex flex-col gap-2 mt-8 transition-transform transform duration-300 ease-in-out"
+          [ngClass]="{'opacity-0 -translate-y-[-20px]': !filterOpened, 'opacity-100 translate-y-0': filterOpened}">
+          <div class="relative flex gap-x-3">
+            <div class="flex h-6 items-center">
+              <input id="draft" name="draft" type="checkbox"
+                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+            </div>
+            <div class="text-sm leading-6">
+              <label for="draft" class="font-medium text-gray-900 dark:text-light">Draft</label>
+            </div>
+          </div>
+          <div class="relative flex gap-x-3">
+            <div class="flex h-6 items-center">
+              <input id="pending" name="pending" type="checkbox"
+                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+            </div>
+            <div class="text-sm leading-6">
+              <label for="pending" class="font-medium text-gray-900 dark:text-light">Pending</label>
+            </div>
+          </div>
+          <div class="relative flex gap-x-3">
+            <div class="flex h-6 items-center">
+              <input id="paid" name="paid" type="checkbox"
+                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+            </div>
+            <div class="text-sm leading-6">
+              <label for="paid" class="font-medium text-gray-900 dark:text-light">Paid</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="flex gap-2 items-center bg-primary p-2 rounded-full duration-100 hover:scale-105 active:scale-95 "
+        (click)="toggleModal()">
+        <div class=" p-3 bg-white rounded-full">
+          <img src="/assets/icon-plus.svg" alt="logo" width="11" height="11" class="w-4"/>
+        </div>
+        <h2 class="text-sm font-bold text-white pr-4">New Invoice</h2>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="(invoices$ | async) as invoices">
+    <div class="w-full h-[60vh] flex flex-col justify-center items-center gap-4" *ngIf="invoices.length < 1">
+      <img src="/assets/illustration-empty.svg" alt="empty illustrator" width="242" height="200"/>
+      <h1 class="text-xl lg:text-3xl font-bold text-dark dark:text-light mt-12">There is nothing here</h1>
+      <p class="w-[90%] md:w-[40%] lg:w-[30%] text-center text-lightGray dark:text-white">
+        Create an invoice by clicking the
+        <b (click)="toggleModal()">New Invoice</b> button and get started
+      </p>
+    </div>
+
+    <!-- Invoice List -->
+    <div class="w-full" *ngIf="invoices.length > 0">
+      <div class="w-full flex flex-col gap-4" *ngFor="let invoice of invoices">
+      <app-invoice-list [invoice]="invoice"/>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Handle Loading State -->
+<!--  <div *ngIf="loading$ | async" class="w-full flex justify-center items-center">-->
+<!--    <p class="text-lightGray dark:text-white">Loading invoices...</p>-->
+<!--  </div>-->
+
+  <!-- Handle Error State -->
+<!--  <div *ngIf="error$ | async as error" class="w-full flex justify-center items-center">-->
+<!--    <p class="text-red-500">Error: {{ error }}</p>-->
+<!--  </div>-->
+
+
+</div>
+<app-left-modal
+  [openModal]="isModalOpened"
+  (toggleModal)="toggleModal()"
+  [title]="'New invoice'">
+  <app-new-invoice-form/>
+</app-left-modal>

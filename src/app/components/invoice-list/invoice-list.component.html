@@ -1,0 +1,25 @@
+    <a [routerLink]="['/details', invoice?.id]" routerLinkActive="active" ariaCurrentWhenActive="page"
+     class="w-full mt-4 flex gap-2 items-center text-center font-semibold text-lightGray dark:text-[#DFE3FA] p-6 border-2 border-transparent hover:border-white/10 shadow rounded-xl dark:bg-darkBlue"
+  >
+    <div class="w-full md:w-[20%] flex flex-col items-start text-left gap-1 font-semibold">
+      <p>#<span class="text-dark dark:text-light">{{invoice?.id}}</span></p>
+      <p class="block md:hidden text-sm font-light mt-3">Due {{ invoice?.paymentDue | date: 'dd MMM yyyy' }}</p>
+      <p class="block md:hidden text-xl text-dark dark:text-light font-bold">£ {{invoice?.total | number: '1.2-2'}}</p>
+    </div>
+    <div class="hidden md:flex w-[25%]">Due {{ invoice?.paymentDue | date: 'dd MMM yyyy' }}</div>
+    <div class=" hidden md:block w-[20%]">{{invoice?.clientName}}</div>
+    <div class="hidden md:block w-[20%] text-xl text-dark dark:text-light font-bold">£ {{invoice?.total | number: '1.2-2'}}</div>
+    <div class="w-[40%] md:w-[20%] flex flex-col justify-start md:justify-end items-start md:items-center gap-1">
+      <p class="block md:hidden">{{invoice?.clientName}}</p>
+      <div class="text-[#33D69F] px-4 py-3 rounded gap-2 flex justify-center items-center" [ngStyle]="{'background-color': getStatusColor(invoice?.status) + '10'}">
+        <div class="w-2 h-2 rounded-full" [ngStyle]="{'background-color': getStatusColor(invoice?.status)}"></div>
+        <p class="mt-1" [ngStyle]="{'color': getStatusColor(invoice?.status)}">{{ invoice?.status }}</p>
+      </div>
+    </div>
+    <div class="w-[10%] hidden md:flex justify-end">
+      <div class="px-5 py-3 active:scale-75 duration-75">
+        <img src="/assets/icon-arrow-right.svg" alt="Image" height="10" width="7"/>
+      </div>
+    </div>
+
+  </a>

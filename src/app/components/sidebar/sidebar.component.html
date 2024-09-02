@@ -1,0 +1,20 @@
+<div
+  class="bg-gray dark:bg-darkBlue w-full lg:w-24 lg:h-screen fixed left-0 top-0 rounded-none lg:rounded-r-3xl flex flex-row lg:flex-col justify-between z-40">
+  <div class="w-[70px] lg:w-24 bg-darkPrimary h-[70px] lg:h-24 rounded-r-3xl text-white flex justify-center items-center relative">
+    <div class="bg-primary w-full h-1/2 rounded-tl-3xl rounded-br-3xl bottom-0 absolute"></div>
+    <img src="/assets/logo.svg" alt="logo" width="28" height="26" class=" w-8 lg:w-10  absolute"/>
+  </div>
+  <div class="flex flex-row lg:flex-col">
+    <div class="p-2 lg:py-4 flex items-center justify-center group duration-300">
+      <button (click)="toggleDarkMode()" class="p-2 cursor-pointer">
+        <img src="/assets/icon-moon.svg" alt="logo" width="80" height="80" class="w-4 lg:w-5 rounded-full block dark:hidden"/>
+        <img src="/assets/icon-sun.svg" alt="logo" width="80" height="80" class="w-4 lg:w-5 rounded-full hidden dark:block"/>
+      </button>
+    </div>
+    <div
+      class="w-16 lg:h-24 lg:w-full rounded-br-3xl text-white flex justify-center items-center relative border-2 border-transparent border-l-[#494E6E] lg:border-l-transparent lg:border-t-[#494E6E]">
+      <img src="/assets/image-avatar.jpg" alt="logo" width="80" height="80" class="w-12 absolute rounded-full"/>
+    </div>
+  </div>
+
+</div>
